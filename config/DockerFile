@@ -1,0 +1,4 @@
+FROM openjdk:17
+EXPOSE 8082
+ADD target/config-1.0.jar config-1.0.jar
+ENTRYPOINT [ "java", "-jar", "-DCOUPON_API=false", "config-1.0.jar" ]

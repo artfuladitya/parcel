@@ -1,0 +1,4 @@
+FROM openjdk:17
+EXPOSE 8083
+ADD target/cost-1.0.jar cost-1.0.jar
+ENTRYPOINT [ "java", "-jar", "-DCOUPON_API=false", "cost-1.0.jar" ]
