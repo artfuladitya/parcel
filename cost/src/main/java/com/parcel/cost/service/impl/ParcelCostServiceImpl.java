@@ -10,6 +10,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+
 @Service
 @Log4j2
 public class ParcelCostServiceImpl implements ParcelCostService {
@@ -27,9 +29,10 @@ public class ParcelCostServiceImpl implements ParcelCostService {
         Float cost = factory.getCostCalculatorService(request).getCost(request);
         Float voucherDiscount = 0f;
         if (voucherCode != null) {
-            voucherDiscount = Float.valueOf(voucherService.getVoucherDiscount(voucherCode));
+            voucherDiscount = voucherService.getVoucherDiscount(voucherCode);
         }
-        float totalCost = cost - voucherDiscount;
-        return new CostResponse(cost, voucherDiscount, totalCost < 0 ? 0 : totalCost);
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        float totalCost = Float.parseFloat(decimalFormat.format(cost - voucherDiscount));
+        return new CostResponse(totalCost < 0 ? 0 : totalCost);
     }
 }

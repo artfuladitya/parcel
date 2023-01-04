@@ -34,7 +34,7 @@ public class ParcelCostServiceImplTest {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        costResponse = new CostResponse(122f, 22f, 100f);
+        costResponse = new CostResponse(100f);
         request = new CalculateCostRequest();
     }
 
@@ -55,9 +55,9 @@ public class ParcelCostServiceImplTest {
                 .thenReturn(122f);
 
         CostResponse parcelCost = parcelCostService.getParcelCost("ZXS", request);
-        assertEquals(costResponse.getParcelCost(), parcelCost.getParcelCost());
+        assertEquals(costResponse.getCost(), parcelCost.getCost());
         parcelCost = parcelCostService.getParcelCost(null, request);
-        assertEquals(122f, parcelCost.getParcelCost());
+        assertEquals(122f, parcelCost.getCost());
     }
 
 }

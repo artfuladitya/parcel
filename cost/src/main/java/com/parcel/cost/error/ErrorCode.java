@@ -13,7 +13,7 @@ public enum ErrorCode {
     VOUCHER_SERVICE_UNAVAILABLE("VOUCHER_SERVICE_UNAVAILABLE-", HttpStatus.SERVICE_UNAVAILABLE),
     PARCEL_REJECTED("PARCEL_REJECTED", HttpStatus.NOT_ACCEPTABLE);
 
-    private String message;
-    private HttpStatus httpStatus;
+    private final String message;
+    private final HttpStatus httpStatus;
 
 }

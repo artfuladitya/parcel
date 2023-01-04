@@ -21,12 +21,17 @@ import java.util.Map;
 @Service
 @Log4j2
 public class VoucherServiceImpl implements VoucherService {
-    @Autowired
+
     WebClient.Builder webCLientBuilder;
     @Value("${voucher.api.url}")
     private String url;
     @Value("${voucher.api.key}")
     private String key;
+
+    @Autowired
+    public void setInjectedBean(WebClient.Builder webCLientBuilder) {
+        this.webCLientBuilder = webCLientBuilder;
+    }
 
     @Override
     public Float getVoucherDiscount(String voucherCode) throws CustomException {
@@ -37,9 +42,10 @@ public class VoucherServiceImpl implements VoucherService {
         URI uri = builder.buildAndExpand(req).toUri();
         log.info("Voucher API URI: {}", uri);
         VoucherItem voucherItem = webCLientBuilder.build().get().uri(uri).exchangeToMono(this::handleResponse).block();
-        ;
+        if (voucherItem == null)
+            throw new CustomException(ErrorCode.INVALID_VOUCHER);
         log.info("Voucher API Response : {}", voucherItem.toString());
-        if (voucherItem != null && voucherItem.getExpiry().before(new Date()))
+        if (voucherItem.getExpiry().before(new Date()))
             throw new CustomException(ErrorCode.VOUCHER_EXPIRED);
         return voucherItem.getDiscount();
     }

@@ -30,7 +30,7 @@ public class ParcelCostControllerTest {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        response = new CostResponse(122f, 22f, 100f);
+        response = new CostResponse(100f);
         request = new CalculateCostRequest(10d, 1d, 12d, 2d);
     }
 
@@ -43,7 +43,7 @@ public class ParcelCostControllerTest {
     public void testGetParcelCost() throws CustomException {
         when(parcelCostServiceImpl.getParcelCost(anyString(), any(CalculateCostRequest.class))).thenReturn(response);
         ResponseEntity<CostResponse> res = controller.calculateCost("XYZ", request);
-        assertEquals(response.getTotalCost(), res.getBody().getTotalCost());
+        assertEquals(response.getCost(), res.getBody().getCost());
         res = controller.calculateCost("XYZ", new CalculateCostRequest(0d, 0d, 0d, 0d));
     }
 }

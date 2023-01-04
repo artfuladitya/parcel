@@ -39,7 +39,7 @@ public class CostCalculatorFactory {
 
 
     public CostCalculatorService getCostCalculatorService(CalculateCostRequest request) {
-        Double volume = request.getLength() * request.getWidth() * request.getHeight();
+        double volume = request.getLength() * request.getWidth() * request.getHeight();
         if (request.getWeight() > rejectWeightGt)
             return reject;
         else if (request.getWeight() > heavyWeightGt)
