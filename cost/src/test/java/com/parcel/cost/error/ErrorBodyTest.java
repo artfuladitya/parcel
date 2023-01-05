@@ -21,5 +21,9 @@ public class ErrorBodyTest {
         @SuppressWarnings("unused")
         ErrorBody errorBody = new ErrorBody(HttpStatus.ACCEPTED, "message");
         errorBody = new ErrorBody(HttpStatus.ACCEPTED, "message", "description");
+        errorBody.getDescription();
+        errorBody.getStatus();
+        errorBody.getTimestamp();
+        errorBody.getMessage();
     }
 }

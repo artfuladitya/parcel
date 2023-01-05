@@ -53,7 +53,6 @@ public class ParcelCostServiceImplTest {
 
         when(costCalculatorService.getCost(any(CalculateCostRequest.class)))
                 .thenReturn(122f);
-
         CostResponse parcelCost = parcelCostService.getParcelCost("ZXS", request);
         assertEquals(costResponse.getCost(), parcelCost.getCost());
         parcelCost = parcelCostService.getParcelCost(null, request);

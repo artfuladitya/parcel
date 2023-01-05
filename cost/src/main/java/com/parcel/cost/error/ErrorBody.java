@@ -1,16 +1,12 @@
 package com.parcel.cost.error;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.time.Instant;
 
-@Getter
-@Setter
-@ToString
+@Data
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class ErrorBody {
     private HttpStatus status;
