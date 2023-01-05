@@ -58,7 +58,6 @@ public class VoucherServiceTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         ReflectionTestUtils.setField(voucherService, "url", "http://localhost:8080");
-        ReflectionTestUtils.setField(voucherService, "key", "apikey");
         voucherItemResponse = new VoucherItem();
         voucherItemResponse.setDiscount(7.5f);
         LocalDate localDate = LocalDate.of(2024, 01, 01);

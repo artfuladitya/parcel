@@ -2,8 +2,7 @@ package com.parcel.cost.constant;
 
 public enum OrdinalConstant {
     TRUE(true, true),
-    PARTIAL_TRUE_1(true, false),
-    PARTIAL_TRUE_2(false, true),
+    PARTIAL_TRUE(false, true),
     FALSE(false, false);
     private final Boolean condition1;
     private final Boolean condition2;

@@ -37,13 +37,11 @@ public class CostCalculatorFactory {
                                 @Qualifier("reject") RejectCostCalculatorServiceImpl reject) {
         weightMap = new HashMap<>();
         weightMap.put(OrdinalConstant.TRUE, reject);
-        weightMap.put(OrdinalConstant.PARTIAL_TRUE_1, heavy);
-        weightMap.put(OrdinalConstant.PARTIAL_TRUE_2, heavy);
+        weightMap.put(OrdinalConstant.PARTIAL_TRUE, heavy);
         weightMap.put(OrdinalConstant.FALSE, null);
         volumeMap = new HashMap<>();
         volumeMap.put(OrdinalConstant.TRUE, small);
-        volumeMap.put(OrdinalConstant.PARTIAL_TRUE_1, medium);
-        volumeMap.put(OrdinalConstant.PARTIAL_TRUE_2, medium);
+        volumeMap.put(OrdinalConstant.PARTIAL_TRUE, medium);
         volumeMap.put(OrdinalConstant.FALSE, large);
     }
 
@@ -52,8 +50,10 @@ public class CostCalculatorFactory {
         double volume = request.getLength() * request.getWidth() * request.getHeight();
         CostCalculatorService costCalculatorService;
         costCalculatorService = weightMap.get(OrdinalConstant.valueOf(request.getWeight() > rejectWeightGt, request.getWeight() > heavyWeightGt));
-        if (costCalculatorService == null)
-            costCalculatorService = volumeMap.get(OrdinalConstant.valueOf(smallVolumeLt > volume, mediumVolumeLt > volume));
+        if (costCalculatorService == null) {
+            costCalculatorService = volumeMap.get(OrdinalConstant.valueOf(smallVolumeLt > volume,mediumVolumeLt > volume));
+            log.info(costCalculatorService.toString());
+        }
         log.info(costCalculatorService.toString());
         return costCalculatorService;
     }

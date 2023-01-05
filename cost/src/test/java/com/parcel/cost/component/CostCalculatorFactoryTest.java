@@ -43,13 +43,11 @@ public class CostCalculatorFactoryTest {
         ReflectionTestUtils.setField(factory, "mediumVolumeLt", 2500);
         weightMap = new HashMap<>();
         weightMap.put(OrdinalConstant.TRUE, reject);
-        weightMap.put(OrdinalConstant.PARTIAL_TRUE_1, heavy);
-        weightMap.put(OrdinalConstant.PARTIAL_TRUE_2, heavy);
+        weightMap.put(OrdinalConstant.PARTIAL_TRUE, heavy);
         weightMap.put(OrdinalConstant.FALSE, null);
         volumeMap = new HashMap<>();
         volumeMap.put(OrdinalConstant.TRUE, small);
-        volumeMap.put(OrdinalConstant.PARTIAL_TRUE_1, medium);
-        volumeMap.put(OrdinalConstant.PARTIAL_TRUE_2, medium);
+        volumeMap.put(OrdinalConstant.PARTIAL_TRUE, medium);
         volumeMap.put(OrdinalConstant.FALSE, large);
         ReflectionTestUtils.setField(factory, "weightMap", weightMap);
         ReflectionTestUtils.setField(factory, "volumeMap", volumeMap);
