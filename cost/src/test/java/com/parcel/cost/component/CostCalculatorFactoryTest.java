@@ -1,5 +1,6 @@
 package com.parcel.cost.component;
 
+import com.parcel.cost.constant.OrdinalConstant;
 import com.parcel.cost.request.CalculateCostRequest;
 import com.parcel.cost.service.factory.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,6 +28,10 @@ public class CostCalculatorFactoryTest {
     SmallCostCalculatorServiceImpl small;
     @Mock
     RejectCostCalculatorServiceImpl reject;
+    @Mock
+    private Map<OrdinalConstant, CostCalculatorService> weightMap;
+    @Mock
+    private Map<OrdinalConstant, CostCalculatorService> volumeMap;
 
     @SuppressWarnings("deprecation")
     @BeforeEach
@@ -33,7 +41,18 @@ public class CostCalculatorFactoryTest {
         ReflectionTestUtils.setField(factory, "heavyWeightGt", 10);
         ReflectionTestUtils.setField(factory, "smallVolumeLt", 1500);
         ReflectionTestUtils.setField(factory, "mediumVolumeLt", 2500);
-
+        weightMap = new HashMap<>();
+        weightMap.put(OrdinalConstant.TRUE, reject);
+        weightMap.put(OrdinalConstant.PARTIAL_TRUE_1, heavy);
+        weightMap.put(OrdinalConstant.PARTIAL_TRUE_2, heavy);
+        weightMap.put(OrdinalConstant.FALSE, null);
+        volumeMap = new HashMap<>();
+        volumeMap.put(OrdinalConstant.TRUE, small);
+        volumeMap.put(OrdinalConstant.PARTIAL_TRUE_1, medium);
+        volumeMap.put(OrdinalConstant.PARTIAL_TRUE_2, medium);
+        volumeMap.put(OrdinalConstant.FALSE, large);
+        ReflectionTestUtils.setField(factory, "weightMap", weightMap);
+        ReflectionTestUtils.setField(factory, "volumeMap", volumeMap);
     }
 
     @Test
