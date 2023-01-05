@@ -25,8 +25,6 @@ public class VoucherServiceImpl implements VoucherService {
     WebClient.Builder webCLientBuilder;
     @Value("${voucher.api.url}")
     private String url;
-    @Value("${voucher.api.key}")
-    private String key;
 
     @Autowired
     public void setInjectedBean(WebClient.Builder webCLientBuilder) {
@@ -37,7 +35,6 @@ public class VoucherServiceImpl implements VoucherService {
     public Float getVoucherDiscount(String voucherCode) throws CustomException {
         Map<String, String> req = new HashMap<>();
         req.put("voucherCode", voucherCode);
-        req.put("key", key);
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
         URI uri = builder.buildAndExpand(req).toUri();
         log.info("Voucher API URI: {}", uri);
